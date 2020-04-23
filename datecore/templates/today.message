@@ -1,0 +1,4 @@
+{{ user }}, today is {{ date }}.
+Hey {{ user }}, today is {{ date }}.
+Hi {{ user }}, today is {{ date }}.
+Hello {{ user }}, today is {{ date }}.
