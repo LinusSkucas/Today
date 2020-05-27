@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import yaml
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,15 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a6fus_$b@mz83-^bh3a-a5jxzq6cl5nyh@6a^6sl!=1sra+c2#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["127.0.0.1", "42fbb406.ngrok.io"]
-
-# Application definition
+with open('DaaS/settings/secrets.yml', 'r') as f:
+    yaml_settings = yaml.safe_load(f)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +35,8 @@ INSTALLED_APPS = [
 
     # Third party apps
     'rest_framework',
+    'timezone_field',
+    'slack_utils',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +54,7 @@ ROOT_URLCONF = 'DaaS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, '../../templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,16 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DaaS.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -121,7 +107,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Slack Settings
-SLACK_CLIENT_ID = '1053571365575.1066999652021'
-SLACK_CLIENT_SECRET = '720b245f1edb0ec46f9d0870b11ecab0'
-SLACK_SIGNING_SECRET = '05d6a1331a89823738a16bd7236249f5'
-SLACK_BOT_USER_TOKEN = 'xoxb-1053571365575-1074626579460-MGCEtgZqBLJoLGx1MwE8Cxvi'
+SLACK_CLIENT_ID = yaml_settings.get("SLACK_CLIENT_ID")
+SLACK_CLIENT_SECRET = yaml_settings.get('SLACK_CLIENT_SECRET')
+SLACK_SIGNING_SECRET = yaml_settings.get('SLACK_SIGNING_SECRET')

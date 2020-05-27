@@ -1,10 +1,14 @@
 import datetime
-import json
+import pytz
 import requests
+import os
 
-url = "https://42fbb406.ngrok.io/private/mark"
+url = os.getenv('SERVER_URL')
+notificationTime = datetime.time(hour=7)
 
 
 def lambda_handler(event, context):
-    requests.get(url=url)
-    return {'statusCode': 200, }
+    for tz in pytz.all_timezones:
+        if datetime.datetime.now(tz=pytz.timezone(tz)).hour == notificationTime.hour:
+            requests.post(url, data={'new_timezone': tz})
+    return {'statusCode': 200}
