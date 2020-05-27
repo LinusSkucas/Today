@@ -50,7 +50,7 @@ def add_user_notifications(user_id, workspace_token, workplace_id):
     """Adds user to db"""
     client = WebClient(token=workspace_token)
     user_info = client.users_info(user=user_id)['user']
-    user, created = SlackUser.objects.get_or_create(slack_id=user_id, slack_workspace_id=workplace_id)
+    user, _ = SlackUser.objects.get_or_create(slack_id=user_id, slack_workspace_id=workplace_id)
     user.slack_timezone = user_info['tz']
     user.slack_enabled = True
     user.slack_timezone_override = True
