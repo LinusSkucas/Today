@@ -14,6 +14,7 @@ zip -r9 ${OLDPWD}/function.zip .
 cd $OLDPWD
 echo '🧨 Zipping the Function up...'
 zip -g function.zip hourMarkLambdaFunction.py
+zip -g function.zip shared_secret.txt
 echo '🚀 Uploading to AWS!'
 aws lambda update-function-code --function-name hourMarkCaller --zip-file fileb://function.zip
 echo '🛀🏼 Cleaning up...'

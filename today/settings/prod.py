@@ -6,7 +6,7 @@ import os
 SECRET_KEY = os.environ['RANDOM_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [os.environ['VIRTUAL_HOST']]
 
@@ -19,4 +19,10 @@ DATABASES = {
         'PASSWORD': os.environ['DB_PASSWORD'],
         'OPTIONS': {'sslmode': 'require'},
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }

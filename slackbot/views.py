@@ -18,7 +18,6 @@ from .modal_configuration import *
 @api_view(["POST"])
 def today_command(request):
     verify.verify_request(request)
-
     data = request.data
     user_id = data.get('user_id')
     action = data.get('text')
@@ -33,6 +32,7 @@ def today_command(request):
     else:
         message = notify.format_notification(user_id, workspace_token)
         requests.post(response_url, json={"text": message, 'response_type': 'in_channel'})
+
 
     return Response(status=status.HTTP_200_OK)
 
