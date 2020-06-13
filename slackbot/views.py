@@ -115,6 +115,8 @@ def on_event_received(sender, event_type, event_data, **kwargs):
     if event_type == 'app_home_opened' and event_data.get('tab') == 'home':
         # render app home!
         user_id = event_data.get('user')
+        if event_data.get('view') is None:
+            return Response(status=status.HTTP_200_OK)
         workspace_id = event_data.get('view').get('team_id')
         workspace_token = SlackWorkspace.objects.get(pk=workspace_id).slack_bot_user_token
         notify.publish_homepage(user_id=user_id, workspace_token=workspace_token)

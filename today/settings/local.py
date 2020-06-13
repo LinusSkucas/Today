@@ -7,7 +7,7 @@ SECRET_KEY = 'a6fus_$b@mz83-^bh3a-a5jxzq6cl5nyh@6a^6sl!=1sra+c2#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", 'f8929bc7.ngrok.io']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
